@@ -92,14 +92,14 @@ class PortableRunnerTest(fn_runner_test.FnApiRunnerTest):
     _LOGGER.info('Waiting for server to be ready...')
     start = time.time()
     # Long timeout based previously flaky test. See issue #22115.
-    timeout = 300
+    timeout_sec = 300
     while True:
       time.sleep(0.1)
       if cls._subprocess.poll() is not None:
         raise RuntimeError(
             'Subprocess terminated unexpectedly with exit code %d.' %
             cls._subprocess.returncode)
-      elif time.time() - start > timeout:
+      elif time.time() - start > timeout_sec:
         raise RuntimeError(
             'Pipeline timed out waiting for job service subprocess.')
       else:
